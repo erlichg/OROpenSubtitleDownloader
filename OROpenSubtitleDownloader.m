@@ -11,7 +11,7 @@
 
 #import "OROpenSubtitleDownloader.h"
 
-static NSString *OROpenSubtitleURL  = @"https://api.opensubtitles.org/";
+static NSString *OROpenSubtitleURL  = @"http://api.opensubtitles.org/";
 static NSString *OROpenSubtitlePath = @"xml-rpc";
 
 static NSString * const kRequest_GetSubLanguages = @"GetSubLanguages";
