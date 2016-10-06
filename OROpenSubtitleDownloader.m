@@ -150,6 +150,7 @@ static NSString * const kRequest_SearchIMDB = @"SearchMoviesOnIMDB";
 
         XMLRPCConnectionManager *manager = [XMLRPCConnectionManager sharedManager];
         [manager spawnConnectionWithXMLRPCRequest:request delegate:self];
+    }
 }
 
 - (void)downloadSubtitlesForResult:(OpenSubtitleSearchResult *)result toPath:(NSString *)path :(void(^)(NSString *path, NSError *error))onResultsFound
