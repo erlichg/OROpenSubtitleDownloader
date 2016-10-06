@@ -16,6 +16,7 @@ static NSString *OROpenSubtitlePath = @"xml-rpc";
 
 static NSString * const kRequest_GetSubLanguages = @"GetSubLanguages";
 static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
+static NSString * const kRequest_SearchIMDB = @"SearchMoviesOnIMDB";
 
 @interface OROpenSubtitleDownloader(){
     NSString *_authToken;
@@ -136,6 +137,21 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
 }
 
 
+- (void)searchForMovie:(NSString *)query :(void(^)(NSArray *movies, NSError *error))searchResult
+{
+    // Search for movies on imdb
+    XMLRPCRequest *request = [self generateRequest];
+    if (query)
+    {
+        [request setMethod:kRequest_SearchIMDB withParameters:@[_authToken, query]];
+
+        NSString *searchIMDBCompleteID  = [NSString stringWithFormat:@"Search%@Complete", query];
+        [_blockResponses setObject:[searchResult copy] forKey:searchIMDBCompleteID];
+
+        XMLRPCConnectionManager *manager = [XMLRPCConnectionManager sharedManager];
+        [manager spawnConnectionWithXMLRPCRequest:request delegate:self];
+}
+
 - (void)downloadSubtitlesForResult:(OpenSubtitleSearchResult *)result toPath:(NSString *)path :(void(^)(NSString *path, NSError *error))onResultsFound
 {
     // Download the subtitles using the HTTP request method
@@ -176,6 +192,7 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
 
     [downloadTask resume];
 }
+
 
 #pragma mark -
 #pragma mark Utilities

@@ -63,6 +63,9 @@ typedef enum {
 
 /// Downloads a subtitle result to a file after being unzipped
 - (void)downloadSubtitlesForResult:(OpenSubtitleSearchResult *)result toPath:(NSString *)path :(void(^)(NSString *path, NSError *error))onResultsFound;
+
+/// search for movie on imdb
+- (void)searchForMovie:(NSString *)query :(void(^)(NSArray *movies, NSError *error))searchResult;
 @end
 
 
