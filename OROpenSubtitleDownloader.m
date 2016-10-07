@@ -127,7 +127,7 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
 
         [request setMethod:kRequest_SearchSubtitles withParameters:@[_authToken, @[params] ]];
 
-        NSString *searchQueryCompleteID  = [NSString stringWithFormat:@"Search%@Complete", query];
+        NSString *searchQueryCompleteID  = [NSString stringWithFormat:@"Search%@Complete", imdbid];
         [_blockResponses setObject:[searchResult copy] forKey:searchQueryCompleteID];
 
         XMLRPCConnectionManager *manager = [XMLRPCConnectionManager sharedManager];
