@@ -16,7 +16,6 @@ static NSString *OROpenSubtitlePath = @"xml-rpc";
 
 static NSString * const kRequest_GetSubLanguages = @"GetSubLanguages";
 static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
-static NSString * const kRequest_SearchIMDB = @"SearchMoviesOnIMDB";
 
 @interface OROpenSubtitleDownloader(){
     NSString *_authToken;
@@ -115,14 +114,14 @@ static NSString * const kRequest_SearchIMDB = @"SearchMoviesOnIMDB";
     }
 }
 
-- (void)searchForSubtitlesWithQuery:(NSString *)query :(void(^) (NSArray *subtitles, NSError *error))searchResult
+- (void)searchForSubtitlesWithIMDB:(NSString *)imdbid :(void(^) (NSArray *subtitles, NSError *error))searchResult
 {
     XMLRPCRequest *request = [self generateRequest];
 
-    if (query && _languageString && _authToken)
+    if (imdbid && _languageString && _authToken)
     {
         NSDictionary *params = @{
-                                 @"query" : query,
+                                 @"imdbid" : imdbid,
                                  @"sublanguageid" : _languageString
                                  };
 
@@ -136,22 +135,6 @@ static NSString * const kRequest_SearchIMDB = @"SearchMoviesOnIMDB";
     }
 }
 
-
-- (void)searchForMovie:(NSString *)query :(void(^)(NSArray *movies, NSError *error))searchResult
-{
-    // Search for movies on imdb
-    XMLRPCRequest *request = [self generateRequest];
-    if (query)
-    {
-        [request setMethod:kRequest_SearchIMDB withParameters:@[_authToken, query]];
-
-        NSString *searchIMDBCompleteID  = [NSString stringWithFormat:@"Search%@Complete", query];
-        [_blockResponses setObject:[searchResult copy] forKey:searchIMDBCompleteID];
-
-        XMLRPCConnectionManager *manager = [XMLRPCConnectionManager sharedManager];
-        [manager spawnConnectionWithXMLRPCRequest:request delegate:self];
-    }
-}
 
 - (void)downloadSubtitlesForResult:(OpenSubtitleSearchResult *)result toPath:(NSString *)path :(void(^)(NSString *path, NSError *error))onResultsFound
 {
@@ -302,6 +285,7 @@ static NSString * const kRequest_SearchIMDB = @"SearchMoviesOnIMDB";
             resultsBlock(searchResults, nil);
         });
     }
+
 }
 
 - (void)request: (XMLRPCRequest *)request didFailWithError: (NSError *)error {
