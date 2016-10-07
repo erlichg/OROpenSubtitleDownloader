@@ -276,7 +276,7 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
         }
 
         NSString *hash = request.parameters[1][0][@"moviehash"];
-        if(!hash) hash = request.parameters[1][0][@"query"];
+        if(!hash) hash = request.parameters[1][0][@"imdbid"];
         NSString *searchHashCompleteID  = [NSString stringWithFormat:@"Search%@Complete", hash];
 
         void (^resultsBlock)(NSArray *subtitles, NSError *error) = [_blockResponses objectForKey:searchHashCompleteID];
