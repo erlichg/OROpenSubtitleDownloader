@@ -125,8 +125,8 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
                                  @"sublanguageid" : _languageString
                                  };
         if (season && episode) {
-            [params setObject:season forKey:@"season"];
-            [params setObject:episode forKey:@"episode"];
+            [params setValue:season forKey:@"season"];
+            [params setValue:episode forKey:@"episode"];
         }
 
         [request setMethod:kRequest_SearchSubtitles withParameters:@[_authToken, @[params] ]];
