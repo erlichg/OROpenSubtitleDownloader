@@ -114,16 +114,20 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
     }
 }
 
-- (void)searchForSubtitlesWithIMDB:(NSString *)imdbid :(void(^) (NSArray *subtitles, NSError *error))searchResult
+- (void)searchForSubtitlesWithIMDB:(NSString *)imdbid andSeason:(NSString *)season andEpisode:(NSString *)episode :(void(^) (NSArray *subtitles, NSError *error))searchResult
 {
     XMLRPCRequest *request = [self generateRequest];
 
     if (imdbid && _languageString && _authToken)
     {
-        NSDictionary *params = @{
+        NSMutableDictionary *params = @{
                                  @"imdbid" : imdbid,
                                  @"sublanguageid" : _languageString
                                  };
+        if (season && episode) {
+            [params setObject:season forKey:@"season"]
+            [params setObject:episode forKey:@"episode"]
+        }
 
         [request setMethod:kRequest_SearchSubtitles withParameters:@[_authToken, @[params] ]];
 

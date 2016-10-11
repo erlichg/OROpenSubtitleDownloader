@@ -59,7 +59,7 @@ typedef enum {
 - (void)searchForSubtitlesWithHash:(NSString *)hash andFilesize:(NSNumber *)filesize :(void(^) (NSArray *subtitles, NSError *error))searchResult;
 
 /// Search with a text query and get a return block with an array of OpenSubtitleSearchResult
-- (void)searchForSubtitlesWithIMDB:(NSString *)imdbid :(void(^) (NSArray *subtitles, NSError *error))searchResult;
+- (void)searchForSubtitlesWithIMDB:(NSString *)imdbid andSeaon:(NSString *)season ansEpisode:(NSString *)episode :(void(^) (NSArray *subtitles, NSError *error))searchResult;
 
 /// Downloads a subtitle result to a file after being unzipped
 - (void)downloadSubtitlesForResult:(OpenSubtitleSearchResult *)result toPath:(NSString *)path :(void(^)(NSString *path, NSError *error))onResultsFound;
