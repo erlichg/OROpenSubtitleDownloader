@@ -120,13 +120,11 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
 
     if (imdbid && _languageString && _authToken)
     {
-        NSMutableDictionary *params = @{
-                                 @"imdbid" : imdbid,
-                                 @"sublanguageid" : _languageString
-                                 };
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:imdb ,@"imdbid", _languageString, @"sublanguageid",nil]
+
         if (season && episode) {
-            [params setValue:season forKey:@"season"];
-            [params setValue:episode forKey:@"episode"];
+            [params setObject:season forKey:@"season"];
+            [params setObject:episode forKey:@"episode"];
         }
 
         [request setMethod:kRequest_SearchSubtitles withParameters:@[_authToken, @[params] ]];
