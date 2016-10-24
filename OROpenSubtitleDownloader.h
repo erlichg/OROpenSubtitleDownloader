@@ -15,7 +15,8 @@ typedef enum {
     OROpenSubtitleStateLoggedIn,
     OROpenSubtitleStateSearching,
     OROpenSubtitleStateDownloading,
-    OROpenSubtitleStateDownloaded
+    OROpenSubtitleStateDownloaded,
+    OROpenSubtitleStateError
 } OROpenSubtitleState;
 
 /// Simple authentication delegate callback protocol

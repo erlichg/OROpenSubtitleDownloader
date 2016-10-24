@@ -239,7 +239,11 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
     // Logged in successfully, let the delegate know
     if ([request.method isEqualToString:@"LogIn"]) {
         _authToken = response.object[@"token"];
-        _state = OROpenSubtitleStateLoggedIn;
+        if (_authToken != nil) {
+            _state = OROpenSubtitleStateLoggedIn;
+        } else {
+            _state = OROpenSubtitleStateError;
+        }
 
         if (_delegate && [_delegate respondsToSelector:@selector(openSubtitlerDidLogIn:)]) {
             [_delegate openSubtitlerDidLogIn:self];
